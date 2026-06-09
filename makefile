@@ -1,20 +1,28 @@
-all: main
+CC = gcc
+CFLAGS = -Wall -g
 
-main: main.o big3.o fact.o pal.o
-	gcc -o main main.o big3.o fact.o pal.o
+OBJS = main.o big3.o fact.o pal.o
+TARGET = main
 
-main.o: main.c big3.h fact.h pal.h
-	gcc -c main.c
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(OBJS)
 
 big3.o: big3.c big3.h
-	gcc -c big3.c
+	$(CC) $(CFLAGS) -c big3.c
 
 fact.o: fact.c fact.h
-	gcc -c fact.c
+	$(CC) $(CFLAGS) -c fact.c
 
 pal.o: pal.c pal.h
-	gcc -c pal.c
+	$(CC) $(CFLAGS) -c pal.c
+
+main.o: main.c big3.h fact.h pal.h
+	$(CC) $(CFLAGS) -c main.c
 
 clean:
-	rm -f *.o main
+	rm -f $(OBJS) $(TARGET)
+
+
 
